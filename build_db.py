@@ -1,6 +1,6 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
-build_db.py â€” one-shot script to (re)build the KpolitX Intel SQLite database from CSVs.
+build_db.py — one-shot script to (re)build the SCINT SQLite database from CSVs.
 
 Usage:
     python build_db.py
