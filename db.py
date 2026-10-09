@@ -1,13 +1,13 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
-db.py â€” SQLite layer for KpolitX Intel
-KpolitX CTI Platform | KpolitX
+db.py — SQLite layer for SCINT
+GPCSSI 2026 | Gurugram Police
 
 Builds a queryable SQLite database from the dummy CSVs and provides
 aggregate statistics for the dashboard's Analytics page.
 
 The CSVs remain the canonical demo data; this DB is generated from them.
-Set the env var KpolitX Intel_DB to override where the .db file lives.
+Set the env var SCINT_DB to override where the .db file lives.
 """
 
 import os
@@ -16,7 +16,7 @@ import sqlite3
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
-DB_PATH = os.getenv("KpolitX Intel_DB", os.path.join(DATA_DIR, "KpolitX Intel.db"))
+DB_PATH = os.getenv("SCINT_DB", os.path.join(DATA_DIR, "scint.db"))
 
 TABLES = {
     "aadhaar": "aadhaar_db.csv",
@@ -68,13 +68,13 @@ def query(sql, params=()):
 
 def get_stats():
     """Aggregate stats for the Analytics dashboard (SQL + risk scoring)."""
-    import KpolitX Intel  # reuse the canonical scoring
+    import scint  # reuse the canonical scoring
 
-    # Risk distribution â€” score every phone
+    # Risk distribution — score every phone
     phones = [r["phone"] for r in query("SELECT phone FROM aadhaar")]
     high = med = low = 0
     for p in phones:
-        s, _ = KpolitX Intel.score_phone_quiet(p)
+        s, _ = scint.score_phone_quiet(p)
         if s >= 75:
             high += 1
         elif s >= 40:
@@ -112,7 +112,7 @@ def get_stats():
     }
 
 
-# â”€â”€ Watchlist & Activity Tracking (Palantir-style) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Watchlist & Activity Tracking (Palantir-style) ─────────────────────────
 
 _extra_ready = False
 
@@ -255,7 +255,7 @@ def get_threat_level():
             "high_hits": high_count, "watchlist": wl_count}
 
 
-# â”€â”€ Golden Hour â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Golden Hour ──────────────────────────────────────────────────────────────
 
 def start_golden_hour(victim_name, victim_phone, suspect_phone="",
                       suspect_upi="", suspect_bank="", suspect_account="",
@@ -330,7 +330,7 @@ def close_golden_hour(gid):
     conn.close()
 
 
-# â”€â”€ Complaints & Clustering â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Complaints & Clustering ──────────────────────────────────────────────────
 
 def add_complaint(victim_name, victim_phone, suspect_indicators, scam_type,
                   amount, description, state):
