@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python3
 """
-KpolitX Intel - Scam Cyber Intelligence Tool
-KpolitX CTI Platform | KpolitX Cyber Security Internship
+SCINT - Scam Cyber Intelligence Tool
+GPCSSI 2026 | Gurugram Police Cyber Security Internship
 Built for educational/demonstration purposes using dummy data only.
 """
 
@@ -73,7 +73,7 @@ def banner():
 â•‘         â•šâ•â•â•â•â•â•â• â•šâ•â•â•â•â•â•â•šâ•â•â•šâ•â•  â•šâ•â•â•â•   â•šâ•â•                â•‘
 â•‘                                                              â•‘
 â•‘       Scam Cyber Intelligence Tool  v1.0                    â•‘
-â•‘       KpolitX CTI Platform | KpolitX                         â•‘
+â•‘       GPCSSI 2026 | Gurugram Police                         â•‘
 â•‘       âš   DUMMY DATA â€” FOR DEMONSTRATION ONLY âš              â•‘
 â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 {RESET}""")
@@ -211,7 +211,7 @@ def lookup_phone(phone, make_html=False):
         "cctns_cases": cctns_matches,
         "disclaimer": "DUMMY DATA â€” FOR DEMONSTRATION PURPOSES ONLY"
     }
-    report_path = os.path.join(BASE_DIR, "reports", f"KpolitX Intel_{phone}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+    report_path = os.path.join(BASE_DIR, "reports", f"scint_{phone}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
     with open(report_path, 'w') as f_:
         json.dump(report, f_, indent=2)
 
@@ -515,7 +515,7 @@ def main():
     banner()
 
     parser = argparse.ArgumentParser(
-        description="KpolitX Intel - Scam Cyber Intelligence Tool (KpolitX CTI Platform)",
+        description="SCINT - Scam Cyber Intelligence Tool (GPCSSI 2026)",
         formatter_class=argparse.RawTextHelpFormatter
     )
     parser.add_argument("--phone",  help="Lookup a phone number\n  Example: --phone 9876543210")
@@ -537,10 +537,10 @@ def main():
     else:
         parser.print_help()
         print(f"\n{YELLOW}Example usage:{RESET}")
-        print(f"  python3 KpolitX Intel.py --phone 9876543210")
-        print(f"  python3 KpolitX Intel.py --ip 45.133.1.98")
-        print(f"  python3 KpolitX Intel.py --domain github.com")
-        print(f"  python3 KpolitX Intel.py --ip 45.133.1.98 --html  {DIM}(adds HTML report){RESET}\n")
+        print(f"  python3 scint.py --phone 9876543210")
+        print(f"  python3 scint.py --ip 45.133.1.98")
+        print(f"  python3 scint.py --domain github.com")
+        print(f"  python3 scint.py --ip 45.133.1.98 --html  {DIM}(adds HTML report){RESET}\n")
 
 if __name__ == "__main__":
     main()
